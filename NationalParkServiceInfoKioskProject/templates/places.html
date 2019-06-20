@@ -1,0 +1,16 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4">
+	<h1>{{ num_places }} Places Found</h1>
+	{% for place in places %}
+	<div class="pb-4 content-section">
+		<div>
+			<a href="{{ place.get('url') }}">{{ place.get('title') }}</a>
+		</div>
+		<div>
+			{{ place.get('listingdescription') }}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}

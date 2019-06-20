@@ -1,0 +1,332 @@
+{% extends "general_layout.html" %} <!--TBD later if we need to move to own layout-->
+{% block content %}
+
+<div class="pl-4 pr-4">
+	<h1 class="display-2 font-bold">
+		{% if park_name != "temp" %}
+		{{ park_name }}
+		{% endif %}
+	</h1>
+	<h1>
+		{{ campground_name }}
+	</h1>
+	<div class="pb-4">
+		{{ campground.get('description') }}
+	</div>
+	<div class="pb-4">
+		<h2>
+			General Information
+		</h2>
+		<div class="row">
+			<div class="col-lg-2">
+				<div class="font-weight-bold">
+					General Directions
+				</div>
+				<div>
+					{{ campground.get('directionsoverview') }}
+				</div>
+				<div>
+					<a href="{{ campground.get('directionsUrl') }}">Details</a>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="font-weight-bold">
+					General Weather
+				</div>
+				<div>
+					{{ campground.get('weatheroverview') }}
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<div class="font-weight-bold">
+					Operating Hours
+				</div>
+				<div>
+					{{ campground.get('operatinghours') }}
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<!--Google map-->
+				{% if map_query != "" %}
+				<div id="map-container-google-2" class="z-depth-1-half map-container">
+					<iframe src="https://maps.google.com/maps?q={{ lat }},{{ lng }}&hl=es;z=14&amp;output=embed" height="450" width="600" frameborder="0"
+					style="border:0" allowfullscreen></iframe>
+				</div>
+				{% else %}
+				<div>
+					No map information available
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="pb-4">
+		<h2>
+			Reservation Information
+		</h2>
+		<div>
+			<div class="font-weight-bold medium">
+				General Reservation Process
+			</div>
+			{% if campground.get('reservationsdescription') == "" %}
+			There is no reservation process available.
+			{% else %}
+			<div>
+				{{ campground.get('reservationsdescription') }}
+			</div>
+			{% endif %}
+		</div>
+		<div>
+			<div class="font-weight-bold medium">
+				(Un)Reserved Sites
+			</div>
+			<div class="row">
+				<div class="col-lg-3 font-weight-bold">
+					Number of Reserved Sites:
+				</div>
+
+				{% if campground.get('reservationsdescription') == "" %}
+				There are no reservable sites available at the moment. Please try again later.
+				{% else %}
+				<div class="col-lg-3">
+					{{ campground.get('reservationssitesreservable') }}
+				</div>
+				{% endif %}
+			</div>
+			<div class="row">
+				<div class="col-lg-3 font-weight-bold">
+					Number of Open Sites*:
+				</div>
+				{% if campground.get('reservationsdescription') == "" %}
+				There are no walk-on sites available at the moment. Please try again later.
+				{% else %}
+				<div class="col-lg-3">
+					{{ campground.get('reservationssitesfirstcome') }}
+				</div>
+				{% endif %}
+			</div>
+			<div class="row">
+				{% if campground.get('reservationsurl') == "" %}
+				<div class="col-lg-3 font-weight-bold">
+					You cannot reserve sites at the moment.
+				</div>
+				{% else %}
+				<div class="col-lg-3 font-weight-bold">
+					Reserve sites here: 
+				</div>
+				<div class="col-lg-3">
+					{{ campground.get('reservationsurl') }}
+				</div>
+				{% endif %}
+			</div>
+			<small class="text-muted">
+				*sites that are first come, first served (cannot be booked in advance)
+			</small>
+		</div>
+	</div>
+
+	<div class="pb-4">
+		<h2>
+			Rules and Regulations
+		</h2>
+		<div>
+			<h5>
+				Overview
+			</h5>
+			<div>
+				{{ campground.get('regulationsoverview') }}
+			</div>
+		</div>
+		<div>
+			<h5>
+				For more information, please visit 
+				<a href="{{ campground.get('regulationsurl') }}">{{ campground.get('regulationsurl') }}</a>
+			</h5>
+		</div>
+	</div>
+
+	<div class="pb-4">
+		<h2>
+			Accessibility
+		</h2>
+		{% if campground.get('accessibility') != False %}
+		<div>
+			{% if campground.get('accessibility').get('wheelchairaccess') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Wheelchair Accessibility: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('wheelchairaccess') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('internetinfo') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Internet Accessibility: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('internetinfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('rvallowed') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					RVs Allowed: 
+				</div>
+				<div class="col-lg-9">
+					{% if campground.get('accessibility').get('rvallowed') == "1" %}
+					Yes
+					{% else %}
+					No
+					{% endif %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('cellphoneinfo') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Cell Phone Information: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('cellphoneinfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('firestovepolicy') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Fire Policies: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('firestovepolicy') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('rvmaxlength') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Maxmimum RV Length: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('rvmaxlength') }} metres (? Not sure what actual unit is)
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('additionalinfo') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Additional Information: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('additionalinfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('trailermaxlength') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Maximum Trailer Length: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('trailermaxlength') }} (? Not sure what actual unit is)
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('adainfo') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Accessible Areas (check naming): 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('adainfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('rvinfo') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					RV Information: 
+				</div>
+				<div class="col-lg-9">
+					{{ campground.get('accessibility').get('rvinfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('accessroads') != [] %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Road Conditions: 
+				</div>
+				<ul class="col-lg-9">
+					{% for note in campground.get('accessibility').get('accessroads') %}
+					<li>
+						{{ note }}
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% else %}
+			All roads are clear; there are no notes.
+			{% endif %}
+
+			{% if campground.get('accessibility').get('trailerallowed') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Trailer Allowed: 
+				</div>
+				<div class="col-lg-9">
+					{% if campground.get('accessibility').get('trailerallowed') == "1" %}
+					Yes
+					{% else %}
+					No
+					{% endif %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if campground.get('accessibility').get('classifications') != "" %}
+			<div class="row">
+				<div class="font-weight-bold col-lg-3">
+					Campground Classifications: 
+				</div>
+				<ul class="col-lg-9">
+					{% for class in campground.get('accessibility').get('classifications') %}
+					<li>
+						{{ class }}
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+
+	
+
+<!--image set-up to be used later
+{% if campground.get('images') != None %}
+{% for image in campground.get('images') %}
+<div>[HOVER TITLE LATER] {{ image.get('title') }} </div>
+<img src="{{ image.get('url') }}">
+<small>
+	{{ image.get('caption') }}
+	Credit: {{ image.credit }}
+</small>
+{% endfor %}
+{% endif %}-->
+{% endblock content %}

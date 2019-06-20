@@ -1,0 +1,157 @@
+<!-- code copied from register.html part 3 for forms-->
+{% extends "general_layout.html" %}
+{% block content %} <!-- block content doesn't work b/c there is a template assertion error for "block 'content' defined twice" -->
+<div class="row">
+	<div class="col-lg-4"></div>
+	<div class="content-section ml-4 mr-4 col-lg-4">
+		<form method="POST" action=""> <!-- action="" means that form will reroute to same route when POSTed -->
+			{{ form.hidden_tag() }} <!-- fields we need; hidden tag is adding a CSR token cross-site reforgery token need to be added as protection-->
+			<fieldset class="form-group">
+				<legend class="border-bottom mb-4">Search for {{ search_type }}</legend>
+				<!-- create form groups -->
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.parkCode.description }}">{{ form.parkCode.label(class="form-control-label") }}</a>
+					<a class="font-weight-bold" href="https://nps-vsp.warnercnr.colostate.edu/showallparkunits.php" target="_blank">*</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.parkCode.errors %}
+					{{ form.parkCode(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.parkCode.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.parkCode(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.stateCode.description }}; NOTE: the Federated States of Micronesia (FM) are not governed under the National Park Service (NPS)">{{ form.stateCode.label(class="form-control-label") }}</a>
+					<a class="font-weight-bold" href="https://abbreviations.yourdictionary.com/articles/state-abbrev.html" target="_blank">*</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.stateCode.errors %}
+					{{ form.stateCode(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.stateCode.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.stateCode(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.limit.description }}">{{ form.limit.label(class="form-control-label") }}</a>
+				
+					<!-- checking for invalid inputs -->
+					{% if form.limit.errors %}
+					{{ form.limit(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.limit.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.limit(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.start.description }}">{{ form.start.label(class="form-control-label") }}</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.start.errors %}
+					{{ form.start(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.start.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.start(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.q.description }}">{{ form.q.label(class="form-control-label") }}</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.q.errors %}
+					{{ form.q(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.q.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.q(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<a class="text-muted" href="" data-toggle="tooltip" data-placement="right" title="{{ form.q.description }}">{{ form.fields.label(class="form-control-label") }}</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.fields.errors %}
+					{{ form.fields(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.fields.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.fields(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<a class="text-muted" href="#" data-toggle="tooltip" data-placement="right" title="{{ form.q.description }}">{{ form.sort.label(class="form-control-label") }}</a>
+
+					<!-- checking for invalid inputs -->
+					{% if form.sort.errors %}
+					{{ form.sort(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.sort.errors %}
+						<span>
+							{{ error }}
+						</span>
+						{% endfor %}
+					</div>
+
+					{% else %}
+					{{ form.sort(class="form-control form-control-lg") }}
+
+					{% endif %}
+				</div>
+
+			</fieldset>
+			<div class="formgroup">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+		</form> 
+	</div>	
+</div>
+{% endblock content %}

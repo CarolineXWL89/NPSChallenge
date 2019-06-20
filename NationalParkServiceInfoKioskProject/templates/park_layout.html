@@ -1,0 +1,269 @@
+{% extends "general_layout.html" %}
+<!--<title>NPS - {{ title }}</title>-->
+{% block park_header %}
+{% for p in park %}
+<title>{{ p.get('fullName') }}</title>
+{% endfor %}
+{% endblock park_header %}
+
+{% block content %}
+<!-- end navigation bar code -->
+
+<!--formatting page notes-->
+<!--alerts, articles, events, and news releases FORMATTING DONE EXCEPT EVENTS-->
+<!--educational information about a selected destination, utilizing available lesson plans as well as relevant people and places associated with the location. FORMATTING DONE; NOT PEOPLE PLACES-->
+
+<!--alerts: @top in bright red FORMATTING DONE-->
+<!--news releases: on RH sidebar SORT OF DONE; LH BAR-->
+<!--campgrounds @park: main thingy listing it out w/ links to specific pages-->
+<!--events: after campground list; maybe will be linked-->
+<!--articles + lessons: in double column list @bottom-->
+<h1 class="text-center">Welcome to {{ park[0].get('fullName') }} National Park</h1>
+<div class="text-center text-danger alerts">
+	<dl class="lead text-danger">
+		<h2 class="text-danger">
+			<a class="text-danger" href="{{ url_for('display_all_alerts', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode')) }}">{{ num_alerts }} Alerts in {{ park[0].get('fullName') }} National Park</a>
+		</h2>
+		{% for alert in alerts %}
+		<dt>
+			<!--state_abb, state_full, park_name, park_code, alert_type, alert_num-->
+			<a href="{{ url_for('display_alert', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode'), alert_type=alert.get('category'), alert_num=alerts.index(alert)) }}">{{ alert.get('title') }}</a> <!--redirect back to an alert display page (simple) -->
+
+		</dt>
+		{% endfor %}
+	</dl>
+</div>
+
+<div class="offset-sm-3 py-2">
+	<div class="row">
+		<div class="col-sm-4 pb-5">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF CAMPGROUNDS</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#campsite-collapse">
+				Show All Campgrounds
+			</button>
+			<div id="campsite-collapse" class="collapse">
+				{% if num_camps == 0 %}
+				<div class="pb-3 text-center">There are no campgrounds for {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for campground in campgrounds %}
+				<div class="pb-3">
+					<a class="text-primary" href="{{ url_for('show_campground', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode'), campground_name=campground.get('name')) }}">{{ campground.get('name') }}</a>
+					<div class="pb-2">
+						{{ campground.get('campsites').get('totalsites') }} total sites
+					</div>
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-sm-4 pb-5 container">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF ARTICLES</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#article-collapse">
+				Show All Articles
+			</button>
+			<div id="article-collapse" class="collapse">
+				{% if num_articles == 0 %}
+				<div class="pb-3 text-center">There are no articles for {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for article in articles %}
+				<div class="pb-3">
+					<a href="{{ article.get('url') }}">{{ article.get('title') }}</a>
+
+					{% if article.get('listingdescription') != "" %}
+					<div>
+						{{ article.get('listingdescription')[0:50] }} ...
+						<a href="{{ article.get('url') }}">read more</a>
+					</div>
+					{% endif %}
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-sm-4 pb-5">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF EVENTS</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#events-collapse">
+				Show All Events
+			</button>
+			<div id="events-collapse" class="collapse">
+				{% if num_events == 0 %}
+				<div class="pb-3 text-center">There are no events for {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for event in events %}
+				<div class="pb-3">
+					<a class="text-primary" href="{{ url_for('event_by_park', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode'), event_id=event.get('id')) }}">{{ event.get('title') }}</a>
+					{% if event.get('description') != "" %}
+					<div>
+						{{ event.get('description')[3:20] }} ... <a class="text-muted" href="{{ url_for('event_by_park', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode'), event_id=event.get('id')) }}">read more</a>
+					</div>
+					{% endif %}
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="row pb-4">
+		<div class="col-sm-4 ">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF LESSONS</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#lessons-collapse">
+				Show All Lessons
+			</button>
+			<div id="lessons-collapse" class="collapse">
+				{% if num_lessons == 0 %}
+				<div class="pb-3 text-center">There are no lessons for {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for lesson in lessons %}
+				<div class="pb-3">
+					<a class="text-primary" href="{{ url_for('lesson_by_park', state_abb=state_abb, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode'), lesson_id=lesson.get('id')) }}">{{ lesson.get('title') }}</a>
+					<div>
+						<div>Subject: {{ lesson.get('subject') }}</div>
+						<div>Grade(s): {{ lesson.get('gradeLevel') }}</div>
+						<div>Duration: {{ lesson.get('duration') }}</div>
+					</div>
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF PEOPLE</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#people-collapse">
+				Show All People
+			</button>
+			<div id="people-collapse" class="collapse">
+				{% if num_people == 0 %}
+				<div class="pb-3 text-center">There are no people associated with {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for person in people %}
+				<div class="pb-3">
+					<a class="text-primary" href="{{ person.get('url') }}">{{ person.get('title') }}</a>
+					{% if person.get('listingdescription') != None %}
+					<div>
+						{{ person.get('listingdescription')[0, 50] }} ... <a class="text-muted" href="{{ person.get('url') }}">read more</a>
+					</div>
+					{% endif %}
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="pb-4 font-weight-bold text-capitalize lead">LIST OF PLACES</div>
+			<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#places-collapse">
+				Show All Places
+			</button>
+			<div id="places-collapse" class="collapse">
+				{% if num_places == 0 %}
+				<div class="pb-3 text-center">There are no places associated with {{ park[0].get('fullName') }} National Park</div>
+				{% else %}
+				{% for place in places %}
+				<div class="pb-3">
+					<a class="text-primary" href="{{ place.get('url') }}">{{ place.get('title') }}</a>
+					{% if place.get('listingDescription') != None %}
+					<div>
+						{{ place.get('listingDescription') }} ... <a class="text-muted" href="{{ place.get('url') }}">read more</a>
+					</div>
+					{% endif %}
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="row">
+			<div class="col-sm-8"></div>
+			<div class="col-lg-4"></div>
+			<div>
+				<div class="pb-4 font-weight-bold text-capitalize lead">VISITOR CENTRES</div>
+				<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#vcs-collapse">
+					Show All Visitor Centres
+				</button>
+				<div id="vcs-collapse" class="collapse">
+					{% if num_vc == 0 %}
+					<div class="pb-3 text-center content-section">There are no visitor centres associated with {{ park[0].get('fullName') }} National Park</div>
+					{% else %}
+					{% for i in range(50) %}
+					<div class="pb-3 col-lg-6">
+						<a class="text-primary" href="{{ vcs[i].get('url') }}">{{ vcs[i].get('name') }}</a>
+						{% if vcs[i].get('description') != "" %}
+						<div>
+							{{ vcs[i].get('description') }}<a class="text-muted" href="{{ vcs[i].get('url') }}">read more</a>
+						</div>
+						{% else %}
+						No description available
+						{% endif %}
+
+						<!--Google map-->
+						{% if vc_map_queries[i] != None %}
+						<div id="map-container-google-2" class="z-depth-1-half map-container">
+							<iframe src="https://maps.google.com/maps?q={{ vc_map_queries[i].get('lat') }},{{ vc_map_queries[i].get('lng') }}&hl=es;z=14&amp;output=embed" height="450" width="600" frameborder="0"
+							style="border:0" allowfullscreen></iframe>
+						</div>
+						{% else %}
+						<div class="col-lg-4">
+							No map information available
+						</div>
+						{% endif %}
+					</div>							
+					{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="offset-sm-3 py-2">
+	<h3 class="text-capitalize">About {{ park[0].get('fullName') }}</h3>
+	<p>
+		{{ park[0].get('description') }}
+	</p>
+
+	<h3 class="text-capitalize">Weather Conditions</h3>
+
+	<p>
+		{{ park[0].get('weatherInfo') }}
+	</p>
+
+	<h3 class="text-capitalize">Directions</h3>
+
+	<p>
+		<a href="{{ park[0].get('url') }}">Visit the {{ park[0].get('fullName') }} National Park official website</a>
+	</p>
+</div>
+
+<div class="container-fluid h-100">
+	<div class="row h-100">
+		<div class="col-2 h-100 py-2 d-flex align-items-center fixed-top" id="left">
+			<!--temporary side bar for news-->
+			<div class="row justify-content-end">
+				<div class="content-section">
+					<h3>
+						<a href="{{ url_for('display_all_news', state_abb=state_abb, state_full=state_full, park_name=park[0].get('fullName'), park_code=park[0].get('parkCode')) }}">News</a>
+					</h3>
+					<p class='text-muted'>{{ park[0].get('fullName') }}
+						<ul class="list-group text-muted">
+							<!--posts will be headlines for news stories + blurbs-->
+							{% if num_news == "0" %}
+							There is no news for {{ park[0].get('fullName') }}
+							{% else %}
+							{% for i in range(4) %}
+							{% if i < (num_news | int) %}
+							<li class="list-group-item list-group-item-light">
+								<a class="text-muted small" href="{{ news[i].get('url') }}">{{ news[i].get('title') }}</a>
+							</li>
+							{% endif %}
+							{% endfor %}
+							{% endif %}
+						</ul>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

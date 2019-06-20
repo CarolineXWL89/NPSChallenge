@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--bootstrap and css setup from tutorials -->
+	<!-- bootstrap intro example part 2 -->
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- end 1st part of bootstrap demo -->
+
+	<!-- main.css/CSS usage demo part 2 start -->
+	<link rel="stylesheet" type="text/css" href=" {{ url_for('static', filename='style.css')}} ">
+	<!-- end main.css demo part 2 -->
+
+	<!--for tooltips-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	<!-- loader sample code -->
+	<!-- <style>
+		.loader {
+			border: 16px solid #f3f3f3;
+			border-radius: 50%;
+			border-top: 16px solid #3498db;
+			width: 120px;
+			height: 120px;
+			-webkit-animation: spin 2s linear infinite; /* Safari */
+			animation: spin 2s linear;
+			animation-duration: 2s
+		}
+
+		/* Safari */
+		@-webkit-keyframes spin {
+			0% { -webkit-transform: rotate(0deg); }
+			100% { -webkit-transform: rotate(360deg); }
+		}
+
+		@keyframes spin {
+			0% { transform: rotate(0deg); }
+			100% { transform: rotate(360deg); }
+		}
+	</style> -->
+	<!-- loader end sample -->
+
+	{% if title == 'Home' %}
+	<title>National Park Services Home Page</title>
+	{% else %}
+	<title>NPS - {{ title }}</title>
+	{% endif %}
+
+	{% block park_header %} {% endblock %}
+</head>
+<body>
+	<!-- Preloader-->
+	<!-- <div class="loader">
+		<div class="cssload-container">
+			<div class="cssload-whirlpool"></div>
+		</div>
+	</div> -->
+	<!-- Preloader end-->
+
+	<!--tooltip enabler-->
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
+		});
+	</script>
+
+</body>
+<!--nav bar stuff TO BE EDITED -->
+<!-- navigation bar code from Github; part 2; bootstrap start -->
+<header class="site-header">
+	<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+		<div class="container">
+			<a class="navbar-brand mr-4" href="/">NPS Info Kiosk</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarToggle">
+				<div class="navbar-nav mr-auto">
+					<a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+					<a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+				</div>
+
+				<!-- Navbar Right Side -->
+				<div class="navbar-nav">
+					<a class="nav-item nav-link" href="{{ url_for('search_choose') }}">Search Form</a>
+					<a class="nav-item nav-link" href="{{ url_for('states_list') }}">Search by State</a>
+					<a class="nav-item nav-link" href="{{ url_for('news', page_num=1) }}">News</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>
+<!-- end navigation bar code -->
+
+{% block content %} {% endblock %}
+
+<!--rest of bootstrap demo stuff code -->
+<!-- bootstrap intro JS part -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- end 2nd part bootstrap demo -->
+</body>
+</html>

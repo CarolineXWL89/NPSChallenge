@@ -1,0 +1,16 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4">
+	<h1>{{ num_campgrounds }} Campgrounds Found</h1>
+	{% for camp in campgrounds %}
+	<div class="pb-4 content-section">
+		<div>
+			<a href="{{ url_for('show_campground', state_abb=state_code, state_full=abb_to_full.get(state_code), park_name='temp', park_code=camp.get('parkCode'), campground_name=camp.get('name')) }}">{{ camp.get('name') }}</a>
+		</div>
+		<div>
+			{{ camp.get('description') }}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}

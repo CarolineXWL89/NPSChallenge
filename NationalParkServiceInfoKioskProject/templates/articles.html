@@ -1,0 +1,21 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4 pr-4">
+	<h1>{{ num_articles }} Articles Found</h1>
+	{% for article in articles %}
+	<div class="pb-4 content-section">
+		<div>
+			<a href="{{ article.get('url') }}">{{ article.get('title') }}</a>
+		</div>
+		<div>
+			{{ article.get('listingdescription') }}
+		</div>
+		<div>
+			<small>
+				<a class="text-muted" href="{{ article.get('url') }}">Read More</a>
+			</small>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}

@@ -1,0 +1,162 @@
+{% extends 'general_layout.html' %}
+{% block content %}
+<div class="pl-4">
+	<div class="text-center">
+		<h1>
+			{{ event.get('parkfullname') }}
+		</h1>
+		<h2 class="display-3">
+			{{ event.get('title') }}
+		</h2>
+	</div>
+	<div>
+	{% if event.get('description').endswith("</p>") %}
+	{{ event.get('description')[3:-4] }}
+	{% else %}
+	{{ event.get('description') }}
+	{% endif %}
+	<div>
+		<div>
+			<h6 class="pb-4 display-4">
+				General Information
+			</h6>
+			{% if event.get('location') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Location: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('location') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('contactname') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Contact Name: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('contactname') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('contacttelephonenumber') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Telephone Number: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('contacttelephonenumber') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('contactemailaddress') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Email: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('contactemailaddress') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('isfree') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Cost: 
+				</div>
+				<div class="col-lg-2">
+					{% if event.get('isfree') == "false" %}
+					The event is not free.
+					{% else %}
+					The event is free.
+					{% endif %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('feeinfo') != "" %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Fee Information: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('feeinfo') }}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('dates') != [] %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Dates: 
+				</div>
+				<div class="col-lg-2">
+					{% for date in event.get('dates') %}
+					<div>
+						{{ date }}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+
+			{% if event.get('times') != [] %}
+			<div class="row pb-4">
+				<div class="col-lg-2 font-weight-bold">
+					Time Frames: 
+				</div>
+				<div class="col-lg-2">
+					{{ event.get('times')[0].get('timestart') }} - {{ event.get('times')[0].get('timeend') }}
+				</div>
+			</div>
+			<div>
+				<small>
+					*We will
+					{% if event.get('times')[0].get('sunsetend') == "false" %}
+					not
+					{% endif %}
+					be able to see the sunset.
+				</small>
+			</div>
+			<div>
+				<small>
+					*We will
+					{% if event.get('times')[0].get('sunrisestart') == "false" %}
+					not
+					{% endif %}
+					be able to see the sunrise.
+				</small>
+			</div>
+			{% endif %} <!--fix later-->
+		</div>
+
+		<div>
+			<h6 class="pb-4 display-4">
+				Registration Information
+			</h6>
+			<div>
+				{% if event.get('regresrequired') != "" %}
+				<div class="row">
+					<div class="col-lg-2 font-weight-bold">
+						NOTE: 
+					</div>
+					<div class="col-lg-2">
+						Registration is 
+						{% if event.get('regresrequired') != "true" %}
+						not
+						{% endif %}
+						required.
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock content %}

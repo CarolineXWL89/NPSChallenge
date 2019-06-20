@@ -1,0 +1,148 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div>
+	<div>
+		<div class="display-3 text-center pb-4">
+			{{ total_news }} News Found for the NPS
+		</div>
+		<div class="text-right pr-4 pb-4 text-muted">
+			Pages: 
+			{% for i in range(total_news // 48) %}
+			<a class="text-muted"href="{{ url_for('news', page_num=(i + 1)) }}">{{ i + 1 }} </a>
+			{% endfor %}
+		</div>
+	</div>
+	{% for i in range(num_news // 3) %}
+	<div class="row">
+		<div class="col-lg-1"></div>
+		{% if (i * 3) < num_news - 1 %}
+		<div class="col-lg-3 ml-4 mr-4 content-section">
+			<div class="content-section">
+				<div class="font-weight-bold">
+					{{ news_all[i * 3].get('title') }}
+				</div>
+				<div class="text-muted">
+					{{ news_all[i * 3].get('abstract')[:200] }}...
+				</div>
+				<div>
+					<a class="pb-4" href="{{ news_all[i * 3].get('url') }}">Read More</a>
+				</div>
+				<!--decide later if we want images???-->
+				{% if news_all[i * 3].get('image').get('url') != "" %}
+				<small class="font-weight-bold">
+					{{ news_all[i * 3].get('image').get('title') }}
+				</small>
+				<div>
+					<img src="{{ news_all[i * 3].get('image').get('url') }}" alt="{{ news_all[i * 3].get('image').get('altText') }}" width=300>
+				</div>
+				<div>
+					<div>
+						<small class="text-muted text-center">
+							{{ news_all[i * 3].get('image').get('caption') }}
+						</small>
+					</div>
+					{% if news_all[i * 3].get('image').get('credit') != "" %}
+					<div>
+						<small class="text-muted">
+							Image Credit: {{ news_all[i * 3].get('image').get('credit') }}
+						</small>
+					</div>
+					{% endif %}
+				</div>
+				{% else %}
+				<div class="pb-4 pr-4 pl-4 pt-4">
+					No image available
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		{% endif %}
+		{% if (i * 3 + 1) < num_news - 1 %}
+		<div class="col-lg-3 ml-4 mr-4 content-section">
+			{% if (i * 3 + 1) < num_news - 1 %}
+			<div class="content-section">
+				<div class="font-weight-bold">
+					{{ news_all[i * 3 + 1].get('title') }}
+				</div>
+				<div class="text-muted">
+					{{ news_all[i * 3 + 1].get('abstract')[:200] }}...
+				</div>
+				<div>
+					<a class="pb-4" href="{{ news_all[i * 3 + 1].get('url') }}">Read More</a>
+				</div>
+				<!--decide if we need it later-->
+				{% if news_all[i * 3 + 1].get('url') != "" %}
+				<small class="font-weight-bold">
+					{{ news_all[i * 3 + 1].get('image').get('title') }}
+				</small>
+				<img src="{{ news_all[i * 3 + 1].get('image').get('url') }}" alt="{{ news_all[i * 3 + 1].get('image').get('altText') }}" width=300>
+				<div>
+					<div>
+						<small class="text-muted text-center">
+							{{ news_all[i * 3 + 1].get('image').get('caption') }}
+						</small>
+					</div>
+					{% if news_all[i * 3 + 1].get('image').get('credit') != "" %}
+					<div>
+						<small class="text-muted">
+							Image Credit: {{ news_all[i * 3 + 1].get('image').get('credit') }}
+						</small>
+					</div>
+					{% endif %}
+				</div>
+				{% else %}
+				<div class="pb-4 pt-4 pr-4 pl-4">
+					No image available
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
+		</div>
+		{% endif %}
+		{% if (i * 3 + 2) < num_news %}
+		<div class="col-lg-3 ml-4 mr-4 content-section">
+			{% if (i * 3 + 2) < num_news - 1 %}
+			<div class="content-section">
+				<div class="font-weight-bold">
+					{{ news_all[i * 3 + 2].get('title') }}
+				</div>
+				<div class="text-muted">
+					{{ news_all[i * 3 + 2].get('abstract')[:200] }}...
+				</div>
+				<div>
+					<a class="pb-4" href="{{ news_all[i * 3 + 2].get('url') }}">Read More</a>
+				</div>
+				<!--decide if we need it later-->
+				{% if news_all[i * 3 + 2].get('url') != "" %}
+				<small class="font-weight-bold">
+					{{ news_all[i * 3 + 2].get('image').get('title') }}
+				</small>
+				<img src="{{ news_all[i * 3 + 2].get('image').get('url') }}" alt="{{ news_all[i * 3 + 2].get('image').get('altText') }}" width=300>
+				<div>
+					<div>
+						<small class="text-muted text-center">
+							{{ news_all[i * 3 + 2].get('image').get('caption') }}
+						</small>
+					</div>
+					{% if news_all[i * 3 + 2].get('image').get('credit') != "" %}
+					<div>
+						<small class="text-muted">
+							Image Credit: {{ news_all[i * 3 + 2].get('image').get('credit') }}
+						</small>
+					</div>
+					{% endif %}
+				</div>
+				{% else %}
+				<div class="pb-4 pt-4 pr-4 pl-4">
+					No image available
+				</div>
+				{% endif %}
+			</div>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock content %}

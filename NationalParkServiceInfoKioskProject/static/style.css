@@ -1,0 +1,134 @@
+/* Code gotten from Flask tutorial Github*/
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+
+.alert {
+  color: #FF0000;
+}
+.alert-header {
+  font-size: : large;
+}
+
+.alert-body {
+  font-size: : medium;
+}
+
+#module {
+  font-size: 14px;
+  line-height: 1.5;
+}
+#module p.collapse[aria-expanded="false"] {
+  display: block;
+  height: 42px !important;
+  overflow: hidden;
+}
+#module p.collapsing[aria-expanded="false"] {
+  height: 42px !important;
+}
+
+.map-container-2{
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-container-2 iframe{
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+.carousel{
+  position:relative;
+  margin-bottom:20px;
+  line-height:1; 
+  height: 275px;
+}
+
+.display-4 {
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 1.0;
+}

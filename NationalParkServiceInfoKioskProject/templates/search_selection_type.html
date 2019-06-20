@@ -1,0 +1,23 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="row">
+	<div class="col-lg-4"></div>
+	<div class="col-lg-1"></div>
+	<div class="dropdown show col-lg-4" style="padding-top: 150px">
+		<a class="btn btn-info dropdown-toggle btn-lg" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select Search Type</a>
+
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=7) }}">Parks</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=2) }}">Articles</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=1) }}">Alerts</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=3) }}">Campgrounds</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=4) }}">Events</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=5) }}">Lesson Plans</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=6) }}">News</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=9) }}">Places</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=8) }}">People</a>
+			<a class="dropdown-item" href="{{ url_for('search', type_tag=10) }}">Visitor Centres</a>
+		</div>
+	</div>
+</div>
+{% endblock content %}

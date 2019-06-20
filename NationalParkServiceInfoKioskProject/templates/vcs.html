@@ -1,0 +1,34 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4 pr-4">
+	<h1 class="pb-4">{{ num_vc }} Visitor Centres Found</h1>
+	<div class="row">
+		{% for i in range(num_vc) %}
+		<div class="pb-4 content-section col-lg-6" style="padding-right: 20px">
+			<div class="pb-3">
+				<a class="text-primary lead" href="{{ vcs[i].get('url') }}">{{ vcs[i].get('name') }}</a>
+				{% if vcs[i].get('description') != "" %}
+				<div>
+					{{ vcs[i].get('description') }}<a class="text-muted" href="{{ vcs[i].get('url') }}"> Read More</a>
+				</div>
+				{% else %}
+				No description available
+				{% endif %}
+
+				<!--Google map-->
+				{% if vc_map_queries[i] != None %}
+				<div id="map-container-google-2" class="z-depth-1-half map-container">
+					<iframe src="https://maps.google.com/maps?q={{ vc_map_queries[i].get('lat') }},{{ vc_map_queries[i].get('lng') }}&hl=es;z=14&amp;output=embed" height="450" width="600" frameborder="0"
+					style="border:0" allowfullscreen></iframe>
+				</div>
+				{% else %}
+				<div class="col-lg-4">
+					No map information available
+				</div>
+				{% endif %}
+			</div>							
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock content %}

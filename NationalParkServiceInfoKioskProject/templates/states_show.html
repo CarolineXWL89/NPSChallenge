@@ -1,0 +1,29 @@
+{% extends "general_layout.html" %}
+<!-- {% block states_shown %} -->
+{% block content %}
+<div class="pl-4 pb-4 mb-4">
+	<div class="pb-4 pt-4 pr-4 pl-4">
+		<div class="text-center pb-4">
+			{% for letter in alphabet_to_state.keys() %}
+			{% if alphabet_to_state.get(letter) != [] %}
+			<small>
+				<a href="{{ url_for('states_show', letter=letter) }}">{{ letter }}</a>
+			</small>
+			{% else %}
+			<small>
+				{{ letter }}
+			</small>
+			{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+	<div class="row pb-4">
+		{% for state in alphabet_to_state.get(letter) %}
+		<div class="state-list col-lg-4 pb-4">
+			<a class="muted-text ml-2 lead font-weight-bold" href="{{ url_for('parks', state_abb=states.get(state), state_full=state) }}">{{ state }}</a>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock content %}
+<!-- {% endblock states_shown %} -->

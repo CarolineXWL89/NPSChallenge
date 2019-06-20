@@ -1,0 +1,19 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4">
+	<h1>{{ num_lessons }} Lesson Plans Found</h1>
+	{% for lesson in lessons %}
+	<div class="pb-4 content-section">
+		<div>
+			<a href="{{ url_for('lesson_by_park', state_abb=state_code, park_name='temp', park_code=park_code, lesson_id=lesson.get('id')) }}">{{ lesson.get('title') }}</a>
+		</div>
+		<div>
+			Grade Levels: {{ lesson.get('gradelevel') }}
+		</div>
+		<div>
+			Duration: {{ lesson.get('duration') }}
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock content %}

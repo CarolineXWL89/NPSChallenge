@@ -1,0 +1,20 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4">
+	<h1>{{ num_events }} Events Found</h1>
+	{% for event in events %}
+	<div class="pb-4 content-section">
+		<div>
+			<a href="{{ url_for('event_by_park', state_abb=state_code, state_full=abb_to_full.get(state_code), park_name=event.get('parkfullname'), park_code=event.get('sitecode'), event_id=event.get('id')) }}">{{ event.get('title') }}</a>
+		</div>
+		<div>
+		{% if event.get('description').endswith("</p>") %}
+		{{ event.get('description')[3:-4] }}
+		{% else %}
+		{{ event.get('description') }}
+		{% endif %}
+	</div>
+</div>
+{% endfor %}
+</div>
+{% endblock content %}

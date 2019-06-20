@@ -1,0 +1,18 @@
+{% extends 'general_layout.html' %}
+{% block content %}
+{% if park_name != "" %}
+<div>
+	<h1 class="pl-4 pr-4 pb-4">Alerts in {{ park_name }}</h1>
+	{% else %}
+	<h1 class="pl-4 pr-4 pb-4">Alerts in National Parks</h1>
+	{% endif %}
+
+	{% for alert in alerts %}
+	<div class="pl-4 pr-4 pb-4">
+		<h2>{{ alert.get('title') }}</h2>
+		<h4>{{ alert.get('category') }}</h4>
+		<p>{{ alert.get('description') }}</p>
+	</div>
+</div>
+{% endfor %}
+{% endblock content %}

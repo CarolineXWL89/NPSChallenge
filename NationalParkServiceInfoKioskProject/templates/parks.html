@@ -1,0 +1,36 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div class="pl-4">
+	<h1>
+		{% if state_full != "" %}
+		Parks in {{ state_full }}
+		{% endif %}
+	</h1>
+
+	<div>
+		<div>
+			<h3>
+				{% if state_full != "" %}
+				{{ num_parks }} Parks found in {{ state_full }} <!--get from clicking later -->
+				{% else %}
+				{{ num_parks }} Parks Have Been Found
+				{% endif %}
+			</h3>
+		</div>
+		<div class="pl-4 pb-4">
+			{% for park in list_of_parks %}
+			<div class="park-list">
+				{% if state_full != "" %}
+				<a class="muted-text ml-2" href="{{ url_for('chosen_park', state_abb=state_abb, state_full=state_full, park_name=park.get('fullName'), park_code=park.get('parkCode')) }}">
+					{{ park.get('fullName') }} <!-- defaults to home now; to specific page later -->
+				</a>
+				{% else %}
+				{% set park_states = park.get('states').split(',') %}
+				<a href="{{ url_for('chosen_park', state_abb=park_states[0], state_full=states.get(park_states[0]),  park_name=park.get('fullName'), park_code=park.get('parkCode')) }}">{{ park.get('fullName') }}</a>
+				{% endif %}
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock content%}

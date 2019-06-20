@@ -1,0 +1,76 @@
+{% extends 'general_layout.html' %}
+{% block content %}
+<div class="pl-4">
+	<div class="text-center font-weight-bold">
+		<h1 class="pb-4">
+			{% if park_name != "temp" %}
+			{{ park_name }}
+			{% endif %}
+		</h1>
+		<h4 class="display-4 pb-4">
+			{{ lesson.get('title') }}
+		</h1>
+	</div>
+	<div>
+		<div class="pb-4">
+			<div class="font-weight-bold pb-2">
+				Lesson Overview
+			</div>
+			<div>
+				<small class="font-weight-bold pb-4">
+					NOTE: 
+				</small>
+				<small>
+					This lesson is suitable for students up in {{ lesson.get('gradelevel') }}.
+				</small>
+			</div>
+			<div class="row pb-4">
+				<div class="col-lg-2">
+					Subject: 
+				</div>
+				<div class="col-lg-2">
+					{{ lesson.get('subject') }}
+				</div>
+			</div>
+			<div class="row pb-4">
+				<div class="col-lg-2">
+					Duration: 
+				</div>
+				<div class="col-lg-2">
+					{{ lesson.get('duration') }}
+				</div>
+			</div>
+			<div class="row pb-4">
+				<div class="col-lg-2">
+					Objective Question: 
+				</div>
+				<div class="col-lg-2">
+					{{ lesson.get('questionobjective') }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<h4 class="pb-4 font-weight-bold">
+				Standards Satisfied: 
+			</h4>
+			{% if lesson.get('commoncore') %}
+			{% for standard_key in lesson.get('commoncore').keys() %}
+			<div class="row pb-4">
+				<div class="col-lg-2">
+					{{ standard_key }}: 
+				</div>
+				<div class="col-lg-2">
+					{{ lesson.get('commoncore').get(standard_key) }}
+				</div>
+			</div>
+			{% endfor %}
+			{% else %}
+			<div class="pb-4">
+				This lessons does not satisfy any Common Core standards.
+			</div>
+			{% endif %}
+		</div>
+		
+	</div>
+</div>
+{% endblock content %}

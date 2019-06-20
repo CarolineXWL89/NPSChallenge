@@ -1,0 +1,84 @@
+{% extends "general_layout.html" %}
+{% block content %}
+<div>
+	<div>
+		<h1 class="display-3 text-center pb-5">
+			News in {{ park_name }} National Park
+		</h1>
+	</div>
+
+	{% for i in range(num_news // 2) %}
+	<div class="pl-4">
+		<div class="row">
+			<div class="col-lg-3 pb-4">
+				<div class="font-weight-bold">
+					{{ news_all[i * 2].get('title') }}
+				</div>
+				<div class="text-muted">
+					{{ news_all[i * 2].get('abstract') }}
+				</div>
+				<div>
+					<a href="{{ news_all[i * 2].get('url') }}">Read More</a>
+				</div>
+			</div>
+
+			<div class="col-lg-3 pb-4">
+				{% if news_all[i * 2].get('image').get('url') != "" %}
+				<small class="font-weight-bold">
+					{{ news_all[i * 2].get('image').get('title') }}
+				</small>
+				<div>
+					<img src="{{ news_all[i * 2].get('image').get('url') }}" alt="{{ news_all[i * 2].get('image').get('altText') }}" width=300>
+				</div>
+				<div>
+					<div>
+						<small class="text-muted text-center">
+							{{ news_all[i * 2].get('image').get('caption') }}
+						</small>
+					</div>
+					<div>
+						<small class="text-muted">
+							Image Credit: {{ news_all[i * 2].get('image').get('credit') }}
+						</small>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+
+			<div class="col-lg-3 pb-4">
+				<div class="font-weight-bold">
+					{{ news_all[i * 2 + 1].get('title') }}
+				</div>
+				<div class="text-muted">
+					{{ news_all[i * 2 + 1].get('abstract') }}
+				</div>
+				<div>
+					<a href="{{ news_all[i * 2 + 1].get('url') }}">Read More</a>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 pb-4">
+				{% if news_all[i * 2 + 1].get('url') != "" %}
+				<small class="font-weight-bold">
+					{{ news_all[i * 2 + 1].get('image').get('title') }}
+				</small>
+				<img src="{{ news_all[i * 2 + 1].get('image').get('url') }}" width=300>
+				<div>
+					<div>
+						<small class="text-muted text-center">
+							{{ news_all[i * 2 + 1].get('image').get('caption') }}
+						</small>
+					</div>
+					<div>
+						<small class="text-muted">
+							Image Credit: {{ news_all[i * 2 + 1].get('image').get('credit') }}
+						</small>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% endblock content %}

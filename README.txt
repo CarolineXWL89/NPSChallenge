@@ -46,3 +46,9 @@ SETUP:
 5. Campgrounds --> stuff from API
 	1. 
 6. ETC FIGURE OUT WHAT ELSE LATER
+
+DEPLOYMENT BUGS/FIXES:
+1. Crop images on home to same size
+2. Auto-caps for state code
+3. More noticible state/park codes
+4. YT link on About leads to Twitter (oops)
